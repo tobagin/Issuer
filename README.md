@@ -21,7 +21,7 @@ A modern, comprehensive GNOME application template built with GTK4, LibAdwaita, 
 - **About Dialog** - Rich about dialog with release notes and metadata
 - **Preferences Dialog** - Modern preferences UI with theme selection
 - **Window State Management** - Automatic window size and position persistence
-- **"What's New" Feature** - Automatic release notes display on updates
+- **"What's New" Feature** - Automatic release notes display on updates (see below for details)
 
 ### Development Infrastructure
 - **Professional Logging** - Configurable logging system with multiple levels
@@ -30,6 +30,53 @@ A modern, comprehensive GNOME application template built with GTK4, LibAdwaita, 
 - **Desktop Integration** - Complete metainfo, desktop files, and icon sets
 - **Flatpak Manifests** - Ready-to-use packaging for Flathub distribution
 - **Documentation** - Comprehensive specs, contracts, and guides
+
+## ✨ What's New Feature
+
+The template includes an intelligent "What's New" system that automatically displays release notes when users update to a new version.
+
+**How It Works:**
+- Tracks the last known application version in GSettings
+- Compares current version with stored version on startup
+- Automatically displays release notes from AppStream metadata when a new version is detected
+- Shows a beautiful dialog with formatted release information
+
+**Version Detection:**
+```vala
+// Automatic version comparison on application startup
+if (current_version != last_known_version) {
+    show_whats_new_dialog();
+    update_stored_version(current_version);
+}
+```
+
+**Release Notes Source:**
+- Release notes are pulled from the `<releases>` section in your `*.metainfo.xml.in` file
+- Supports rich formatting including bullet points, descriptions, and version information
+- Automatically parses AppStream release data for display
+
+**Example Metainfo Release Entry:**
+```xml
+<releases>
+  <release version="1.2.0" date="2024-01-15">
+    <description>
+      <p>New features and improvements:</p>
+      <ul>
+        <li>Added dark mode support</li>
+        <li>Improved performance and stability</li>
+        <li>New keyboard shortcuts</li>
+        <li>Better accessibility support</li>
+      </ul>
+    </description>
+  </release>
+</releases>
+```
+
+**User Experience:**
+- First-time users don't see the dialog (no previous version stored)
+- Returning users see release notes only for genuine updates
+- Dialog can be dismissed and won't show again for the same version
+- Clean, native GNOME design consistent with platform guidelines
 
 ## 📋 Requirements
 
@@ -249,6 +296,54 @@ Update the application ID in `meson.build` and data templates for your project.
    - Fork the [Flathub repository](https://github.com/flathub/flathub)
    - Add your manifest to the repository
    - Create a pull request with your application
+
+### Automated Flathub Updates
+
+This repository includes a GitHub workflow that automatically creates Flathub pull requests when new releases are tagged. The workflow handles updating the Flatpak manifest with new version information and source URLs.
+
+**How It Works:**
+- Triggers automatically when you push a git tag (format: `v*.*.*`)
+- Downloads the latest Flatpak manifest from your Flathub repository
+- Updates version numbers and source URLs to match the new release
+- Creates a pull request to the Flathub repository with the changes
+- Validates the manifest before submission
+
+**Repository Setup Requirements:**
+
+1. **GitHub Secrets Configuration**
+   ```bash
+   # In your repository settings > Secrets and variables > Actions
+   # Add these secrets:
+   FLATHUB_TOKEN=<your-github-personal-access-token>
+   ```
+
+2. **Personal Access Token Setup**
+   - Generate a GitHub personal access token with `public_repo` scope
+   - The token must have write access to your Flathub repository fork
+   - Store it as `FLATHUB_TOKEN` in your repository secrets
+
+3. **Flathub Repository Configuration**
+   - Your application must already be published on Flathub
+   - The workflow expects a Flathub repository at `flathub/io.github.tobagin.AppTemplate`
+   - Your Flatpak manifest must reference GitHub releases as the source
+
+4. **Release Tagging Requirements**
+   - Use semantic versioning for tags (e.g., `v1.0.0`, `v1.2.3`)
+   - Create GitHub releases for each tag
+   - Ensure release assets include source archives that match your manifest
+
+**Usage:**
+```bash
+# Create and push a new release tag
+git tag v1.0.0
+git push origin v1.0.0
+
+# The workflow will automatically:
+# 1. Detect the new tag
+# 2. Update the Flathub manifest
+# 3. Create a PR to Flathub
+# 4. Notify you of the submission status
+```
 
 ## 🧪 Testing
 
