@@ -1,0 +1,33 @@
+app-id: io.github.tobagin.AppTemplate.Devel
+runtime: org.gnome.Platform
+runtime-version: '49'
+sdk: org.gnome.Sdk
+command: app-template
+
+finish-args:
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+  # Development permissions
+  - --share=network
+  - --filesystem=host
+
+modules:
+  - name: blueprint-compiler
+    buildsystem: meson
+    cleanup:
+      - "*"
+    sources:
+      - type: git
+        url: https://gitlab.gnome.org/GNOME/blueprint-compiler.git
+        tag: v0.18.0
+        commit: 07c9c9df9cd1b6b4454ecba21ee58211e9144a4b
+
+  - name: gnome-app-template
+    buildsystem: meson
+    config-opts:
+      - -Dprofile=development
+    sources:
+      - type: dir
+        path: ..

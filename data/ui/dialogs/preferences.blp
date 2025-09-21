@@ -1,0 +1,30 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $AppTemplatePreferences : Adw.PreferencesDialog {
+  title: _("Preferences");
+
+  Adw.PreferencesPage {
+    title: _("General");
+    icon-name: "preferences-system-symbolic";
+
+    Adw.PreferencesGroup {
+      title: _("Appearance");
+      description: _("Customize the look and feel of the application");
+
+      Adw.ComboRow theme_row {
+        title: _("Theme");
+        subtitle: _("Choose the application theme");
+        model: theme_model;
+      }
+    }
+  }
+}
+
+StringList theme_model {
+  strings [
+    _("Follow System"),
+    _("Light"),
+    _("Dark")
+  ]
+}

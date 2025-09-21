@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="@GETTEXT_PACKAGE@">
+
+  <enum id="@ID@.ColorScheme">
+    <value nick="default" value="0"/>
+    <value nick="light" value="1"/>
+    <value nick="dark" value="2"/>
+  </enum>
+
+  <schema id="@ID@" path="/@ID_PATH@/">
+    <key name="color-scheme" enum="@ID@.ColorScheme">
+      <default>'default'</default>
+      <summary>Color scheme preference</summary>
+      <description>
+        Choose the color scheme for the application. Options are 'default' to follow system preference,
+        'light' to force light mode, or 'dark' to force dark mode.
+      </description>
+    </key>
+
+    <key name="window-width" type="i">
+      <default>800</default>
+      <summary>Window width</summary>
+      <description>The width of the main window.</description>
+    </key>
+
+    <key name="window-height" type="i">
+      <default>600</default>
+      <summary>Window height</summary>
+      <description>The height of the main window.</description>
+    </key>
+
+    <key name="window-maximized" type="b">
+      <default>false</default>
+      <summary>Window maximized state</summary>
+      <description>Whether the main window is maximized.</description>
+    </key>
+
+    <key name="first-run" type="b">
+      <default>true</default>
+      <summary>First run indicator</summary>
+      <description>Whether this is the first time the application is run.</description>
+    </key>
+
+    <key name="last-version-shown" type="s">
+      <default>""</default>
+      <summary>Last version for which release notes were shown</summary>
+      <description>Tracks the last application version for which release notes were displayed to avoid showing them repeatedly</description>
+    </key>
+  </schema>
+</schemalist>

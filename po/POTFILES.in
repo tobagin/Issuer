@@ -1,0 +1,18 @@
+# List of source files containing translatable strings
+# Add paths relative to project root
+
+# Desktop and AppStream files
+data/{{APP_ID}}.desktop.in
+data/{{APP_ID}}.appdata.xml.in
+
+# Blueprint UI files
+src/ui/window.blp
+src/ui/preferences.blp
+
+# Vala source files
+src/Main.vala
+src/Application.vala
+src/Window.vala
+src/managers/TemplateManager.vala
+src/managers/ProjectManager.vala
+src/managers/ValidationManager.vala

@@ -1,0 +1,30 @@
+# List of languages supported by this package
+# Each line should contain a language code (ISO 639-1 or 639-2)
+# Uncomment languages as translations become available
+
+# ar
+# ca
+# cs
+# da
+# de
+# el
+en_GB
+es
+# fi
+# fr
+# he
+# hu
+# it
+# ja
+# ko
+# nl
+# pl
+pt
+pt_BR
+# ro
+# ru
+# sv
+# tr
+# uk
+# zh_CN
+# zh_TW

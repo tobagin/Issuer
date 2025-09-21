@@ -1,0 +1,81 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $AppTemplateWindow : Adw.ApplicationWindow {
+  width-request: 800;
+  height-request: 600;
+  default-width: 1200;
+  default-height: 800;
+
+  Gtk.Box {
+    orientation: vertical;
+    
+    Adw.HeaderBar header_bar {
+      title-widget: Adw.WindowTitle {
+        title: _("App Template");
+        subtitle: _("GTK4 App Template");
+      };
+
+      [end]
+      Gtk.MenuButton menu_button {
+        icon-name: "open-menu-symbolic";
+        tooltip-text: _("Main Menu");
+        menu-model: primary_menu;
+      }
+    }
+
+    Adw.ToastOverlay toast_overlay {
+      vexpand: true;
+
+      child: Adw.StatusPage welcome_status {
+        icon-name: "preferences-system-symbolic";
+        title: _("Welcome to App Template");
+        description: _("A modern GTK4 application template for GNOME development");
+
+        child: Gtk.Box {
+          orientation: vertical;
+          spacing: 12;
+          halign: center;
+
+          Gtk.Button about_button {
+            label: _("About");
+            styles ["pill", "suggested-action"]
+            halign: center;
+            action-name: "app.about";
+          }
+        };
+      };
+    }
+  }
+}
+
+menu primary_menu {
+  section {
+    item {
+      label: _("_Preferences");
+      action: "app.preferences";
+      accel: "<primary>comma";
+    }
+  }
+
+  section {
+    item {
+      label: _("_Keyboard Shortcuts");
+      action: "win.show-help-overlay";
+      accel: "<primary>question";
+    }
+
+    item {
+      label: _("_About App Template");
+      action: "app.about";
+    }
+  }
+
+  section {
+    item {
+      label: _("_Quit");
+      action: "app.quit";
+      accel: "<primary>q";
+    }
+  }
+}

@@ -1,0 +1,74 @@
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Build Directories
+build/
+builddir/
+_build/
+.builddir/
+
+# Meson Files
+meson-logs/
+meson-private/
+compile_commands.json
+
+# Flatpak Build
+.flatpak-builder/
+*.flatpak
+*.flatpakref
+flatpak-build/
+repo/
+
+# Vala Generated Files
+*.c
+*.h
+*_vala.stamp
+
+# Object Files and Libraries
+*.o
+*.a
+*.so
+*.so.*
+*.dylib
+*.la
+*.lo
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Debug Files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Package Files
+*.deb
+*.rpm
+*.pkg
+*.dmg
+*.msi
+
+# Temporary Files
+*.tmp
+*.temp
+# *.log
+*.pid
+*.seed
+*.coverage
+
+# Configuration
+config.log
+config.status
+autom4te.cache/
+
+# Claude
+.claude
