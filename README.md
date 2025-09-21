@@ -95,37 +95,37 @@ flatpak run io.github.tobagin.AppTemplate
 
 ```
 app_template/
-├── data/                          # Application data and resources
-│   ├── icons/                     # Application icons (multiple sizes)
-│   ├── ui/                        # Blueprint UI templates
-│   │   ├── dialogs/               # Dialog templates
-│   │   └── window.blp             # Main window template
-│   ├── *.desktop.in               # Desktop entry template
-│   ├── *.gschema.xml.in          # GSettings schema template
-│   ├── *.metainfo.xml.in         # AppStream metadata template
-│   └── meson.build               # Data build configuration
-├── packaging/                     # Flatpak manifests
-│   ├── *.Devel.yml               # Development manifest
-│   └── *.yml                     # Production manifest
-├── po/                           # Internationalization
-│   ├── LINGUAS                   # Supported languages
-│   ├── POTFILES.in              # Translatable files
-│   └── meson.build              # Translation build config
-├── scripts/                      # Build and utility scripts
-│   └── build.sh                 # Universal build script
-├── specs/                        # Project documentation
-│   └── 001-this-will-project/   # Feature specifications
-├── src/                          # Source code
-│   ├── dialogs/                  # Dialog implementations
-│   ├── managers/                 # Application managers
-│   ├── utils/                    # Utility classes
-│   ├── Application.vala          # Main application class
-│   ├── Window.vala              # Main window class
-│   ├── Main.vala                # Application entry point
-│   └── meson.build              # Source build configuration
-├── tests/                        # Test framework
-├── meson.build                   # Root build configuration
-└── meson_options.txt            # Build options
+|-- data/                          # Application data and resources
+|   |-- icons/                     # Application icons (multiple sizes)
+|   |-- ui/                        # Blueprint UI templates
+|   |   |-- dialogs/               # Dialog templates
+|   |   `-- window.blp             # Main window template
+|   |-- *.desktop.in               # Desktop entry template
+|   |-- *.gschema.xml.in          # GSettings schema template
+|   |-- *.metainfo.xml.in         # AppStream metadata template
+|   `-- meson.build               # Data build configuration
+|-- packaging/                     # Flatpak manifests
+|   |-- *.Devel.yml               # Development manifest
+|   `-- *.yml                     # Production manifest
+|-- po/                           # Internationalization
+|   |-- LINGUAS                   # Supported languages
+|   |-- POTFILES.in              # Translatable files
+|   `-- meson.build              # Translation build config
+|-- scripts/                      # Build and utility scripts
+|   `-- build.sh                 # Universal build script
+|-- specs/                        # Project documentation
+|   `-- 001-this-will-project/   # Feature specifications
+|-- src/                          # Source code
+|   |-- dialogs/                  # Dialog implementations
+|   |-- managers/                 # Application managers
+|   |-- utils/                    # Utility classes
+|   |-- Application.vala          # Main application class
+|   |-- Window.vala              # Main window class
+|   |-- Main.vala                # Application entry point
+|   `-- meson.build              # Source build configuration
+|-- tests/                        # Test framework
+|-- meson.build                   # Root build configuration
+`-- meson_options.txt            # Build options
 ```
 
 ## ⚙️ Configuration
