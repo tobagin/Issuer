@@ -3,6 +3,7 @@ app_template_sources = [
   'Main.vala',
   'Application.vala',
   'Window.vala',
+  'Constants.vala',
   'utils/Logger.vala',
   'utils/ErrorHandler.vala',
   'managers/SettingsManager.vala',

@@ -1,7 +1,7 @@
 project('gnome-app-template', 'vala', 'c',
   version : '0.1.0',
   license : 'GPL-3.0+',
-  meson_version : '>= 0.59.0'
+  meson_version : '>= 1.9.0'
 )
 
 # Import modules
@@ -19,10 +19,10 @@ else
 endif
 
 # Dependencies
-gtk4_dep = dependency('gtk4', version: '>= 4.10')
-libadwaita_dep = dependency('libadwaita-1', version: '>= 1.4')
-glib_dep = dependency('glib-2.0', version: '>= 2.74')
-gio_dep = dependency('gio-2.0', version: '>= 2.74')
+gtk4_dep = dependency('gtk4', version: '>= 4.20')
+libadwaita_dep = dependency('libadwaita-1', version: '>= 1.8')
+glib_dep = dependency('glib-2.0', version: '>= 2.86')
+gio_dep = dependency('gio-2.0', version: '>= 2.86')
 
 # Vala compiler requirements
 vala = meson.get_compiler('vala')

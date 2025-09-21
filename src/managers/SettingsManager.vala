@@ -39,29 +39,29 @@ namespace AppTemplate {
             settings = new GLib.Settings (Config.ID);
 
             // Connect to settings changes
-            settings.changed["color-scheme"].connect (() => {
-                var scheme = (ColorScheme) settings.get_enum ("color-scheme");
+            settings.changed[Constants.SETTINGS_COLOR_SCHEME].connect (() => {
+                var scheme = (ColorScheme) settings.get_enum (Constants.SETTINGS_COLOR_SCHEME);
                 apply_theme (scheme);
                 theme_changed (scheme);
                 logger.debug ("Theme changed to: %s", scheme.to_string ());
             });
 
             // Apply initial theme
-            var initial_scheme = (ColorScheme) settings.get_enum ("color-scheme");
+            var initial_scheme = (ColorScheme) settings.get_enum (Constants.SETTINGS_COLOR_SCHEME);
             apply_theme (initial_scheme);
             logger.debug ("SettingsManager initialized with theme: %s", initial_scheme.to_string ());
         }
 
         public ColorScheme get_color_scheme () {
-            return (ColorScheme) settings.get_enum ("color-scheme");
+            return (ColorScheme) settings.get_enum (Constants.SETTINGS_COLOR_SCHEME);
         }
 
         public void set_color_scheme (ColorScheme scheme) {
-            settings.set_enum ("color-scheme", scheme);
+            settings.set_enum (Constants.SETTINGS_COLOR_SCHEME, scheme);
         }
 
         public void bind_color_scheme (GLib.Object object, string property) {
-            settings.bind ("color-scheme", object, property, SettingsBindFlags.DEFAULT);
+            settings.bind (Constants.SETTINGS_COLOR_SCHEME, object, property, SettingsBindFlags.DEFAULT);
         }
 
         private void apply_theme (ColorScheme scheme) {
@@ -82,15 +82,15 @@ namespace AppTemplate {
 
         // Window state management
         public void save_window_state (int width, int height, bool maximized) {
-            settings.set_int ("window-width", width);
-            settings.set_int ("window-height", height);
-            settings.set_boolean ("window-maximized", maximized);
+            settings.set_int (Constants.SETTINGS_WINDOW_WIDTH, width);
+            settings.set_int (Constants.SETTINGS_WINDOW_HEIGHT, height);
+            settings.set_boolean (Constants.SETTINGS_WINDOW_MAXIMIZED, maximized);
         }
 
         public void get_window_state (out int width, out int height, out bool maximized) {
-            width = settings.get_int ("window-width");
-            height = settings.get_int ("window-height");
-            maximized = settings.get_boolean ("window-maximized");
+            width = settings.get_int (Constants.SETTINGS_WINDOW_WIDTH);
+            height = settings.get_int (Constants.SETTINGS_WINDOW_HEIGHT);
+            maximized = settings.get_boolean (Constants.SETTINGS_WINDOW_MAXIMIZED);
         }
 
         // Generic settings helpers

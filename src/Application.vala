@@ -58,18 +58,18 @@ namespace AppTemplate {
         }
 
         private void setup_actions() {
-            var quit_action = new SimpleAction("quit", null);
+            var quit_action = new SimpleAction(Constants.ACTION_QUIT, null);
             quit_action.activate.connect(quit);
             add_action(quit_action);
             set_accels_for_action("app.quit", {"<primary>q"});
 
-            var about_action = new SimpleAction("about", null);
+            var about_action = new SimpleAction(Constants.ACTION_ABOUT, null);
             about_action.activate.connect(() => {
                 AppTemplateAboutDialog.show(active_window);
             });
             add_action(about_action);
 
-            var preferences_action = new SimpleAction("preferences", null);
+            var preferences_action = new SimpleAction(Constants.ACTION_PREFERENCES, null);
             preferences_action.activate.connect(show_preferences);
             add_action(preferences_action);
 
@@ -89,7 +89,7 @@ namespace AppTemplate {
             // Check if this is a new version and show release notes automatically
             if (should_show_release_notes()) {
                 // Small delay to ensure main window is fully presented
-                Timeout.add(500, () => {
+                Timeout.add(Constants.WHATS_NEW_DELAY, () => {
                     if (main_window != null && !main_window.in_destruction()) {
                         logger.info("Showing automatic release notes for new version");
                         AppTemplateAboutDialog.show_with_release_notes(main_window);
@@ -108,12 +108,12 @@ namespace AppTemplate {
             }
             
             try {
-                string last_version = settings.get_string("last-version-shown");
+                string last_version = settings.get_string(Constants.SETTINGS_LAST_VERSION_SHOWN);
                 string current_version = Config.VERSION;
 
                 // Show if this is the first run (empty last version) or version has changed
                 if (last_version == "" || last_version != current_version) {
-                    settings.set_string("last-version-shown", current_version);
+                    settings.set_string(Constants.SETTINGS_LAST_VERSION_SHOWN, current_version);
                     logger.info("New version detected: %s (was: %s)", current_version, last_version == "" ? "first run" : last_version);
                     return true;
                 }

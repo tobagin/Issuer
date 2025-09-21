@@ -75,12 +75,12 @@ public class AppTemplateAboutDialog : GLib.Object {
         AppTemplate.Logger.get_default().debug("About dialog opened, preparing automatic navigation");
         
         // Wait for the dialog to appear and be fully rendered
-        Timeout.add(500, () => {
+        Timeout.add(AppTemplate.Constants.WHATS_NEW_DELAY, () => {
             AppTemplate.Logger.get_default().debug("Starting automatic navigation to release notes");
             simulate_tab_navigation();
             
             // Simulate Enter key press after another delay to open release notes
-            Timeout.add(300, () => {
+            Timeout.add(AppTemplate.Constants.DIALOG_ANIMATION_DELAY, () => {
                 simulate_enter_activation();
                 AppTemplate.Logger.get_default().info("Automatic navigation to release notes completed");
                 return false;

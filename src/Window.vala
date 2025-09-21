@@ -49,7 +49,7 @@ namespace AppTemplate {
         }
 
         private void setup_actions() {
-            var shortcuts_action = new SimpleAction("show-help-overlay", null);
+            var shortcuts_action = new SimpleAction(Constants.ACTION_SHOW_HELP_OVERLAY, null);
             shortcuts_action.activate.connect(() => {
                 AppTemplate.KeyboardShortcuts.show(this);
             });
