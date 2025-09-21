@@ -36,15 +36,19 @@ A modern, comprehensive GNOME application template built with GTK4, LibAdwaita, 
 The template includes an intelligent "What's New" system that automatically displays release notes when users update to a new version.
 
 **How It Works:**
-- Tracks the last known application version in GSettings
-- Compares current version with stored version on startup
-- Automatically displays release notes from AppStream metadata when a new version is detected
-- Shows a beautiful dialog with formatted release information
+- **First-run detection**: Uses GSettings to identify fresh installations
+- **Version tracking**: Stores the last known application version
+- **Smart comparison**: Only triggers on genuine version updates (not fresh installs)
+- **User preference check**: Respects the user's preference setting
+- **Automatic display**: Shows release notes from AppStream metadata when appropriate
 
-**Version Detection:**
+**Version Detection Logic:**
 ```vala
-// Automatic version comparison on application startup
-if (current_version != last_known_version) {
+// Smart version detection on application startup
+if (settings.get_show_whats_new() &&           // User hasn't disabled it
+    !settings.is_first_run() &&                // Not a fresh install
+    last_version != "" &&                      // Has previous version
+    last_version != current_version) {         // Version actually changed
     show_whats_new_dialog();
     update_stored_version(current_version);
 }
@@ -73,10 +77,11 @@ if (current_version != last_known_version) {
 ```
 
 **User Experience:**
-- First-time users don't see the dialog (no previous version stored)
-- Returning users see release notes only for genuine updates
-- Dialog can be dismissed and won't show again for the same version
-- Clean, native GNOME design consistent with platform guidelines
+- **Fresh installs**: No dialog shown (proper first-run detection)
+- **Version updates**: Dialog appears automatically for returning users
+- **User control**: Can be disabled completely via preferences
+- **One-time display**: Dialog won't show again for the same version
+- **Native design**: Clean GNOME interface following platform guidelines
 
 **Configuration:**
 The "What's New" feature can be controlled through the application preferences:
@@ -103,10 +108,15 @@ The "What's New" feature can be controlled through the application preferences:
 ```
 
 ```vala
-// Usage in code
+// Complete implementation example
 var settings = SettingsManager.get_instance();
-if (settings.get_show_whats_new() && version_changed) {
+
+// Check all conditions before showing
+if (settings.get_show_whats_new() &&           // Feature enabled
+    !settings.is_first_run() &&                // Not fresh install
+    version_changed) {                         // Genuine update
     show_whats_new_dialog();
+    settings.set_first_run_complete();         // Mark first run as done
 }
 ```
 

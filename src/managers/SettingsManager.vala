@@ -77,6 +77,15 @@ namespace AppTemplate {
             settings.bind (Constants.SETTINGS_SHOW_WHATS_NEW, object, property, SettingsBindFlags.DEFAULT);
         }
 
+        // First run detection
+        public bool is_first_run () {
+            return settings.get_boolean (Constants.SETTINGS_FIRST_RUN);
+        }
+
+        public void set_first_run_complete () {
+            settings.set_boolean (Constants.SETTINGS_FIRST_RUN, false);
+        }
+
         private void apply_theme (ColorScheme scheme) {
             var style_manager = Adw.StyleManager.get_default ();
 

@@ -108,17 +108,36 @@ namespace AppTemplate {
                     return false;
                 }
             }
-            
+
+            // Check if user has disabled the What's New feature
+            if (!settings.get_show_whats_new()) {
+                logger.debug("What's New feature is disabled in preferences");
+                return false;
+            }
+
+            // Don't show on first run
+            if (settings.is_first_run()) {
+                logger.info("First run detected, not showing What's New dialog");
+                settings.set_first_run_complete();
+                settings.set_string(Constants.SETTINGS_LAST_VERSION_SHOWN, Config.VERSION);
+                return false;
+            }
+
             string last_version = settings.get_string(Constants.SETTINGS_LAST_VERSION_SHOWN);
             string current_version = Config.VERSION;
 
-            // Show if this is the first run (empty last version) or version has changed
-            if (last_version == "" || last_version != current_version) {
+            // Show only if version has changed (not first run)
+            if (last_version != "" && last_version != current_version) {
                 settings.set_string(Constants.SETTINGS_LAST_VERSION_SHOWN, current_version);
-                logger.info("New version detected: %s (was: %s)", current_version, last_version == "" ? "first run" : last_version);
+                logger.info("Version update detected: %s → %s", last_version, current_version);
                 return true;
             }
-            
+
+            // Update version tracking even if not showing dialog
+            if (last_version == "") {
+                settings.set_string(Constants.SETTINGS_LAST_VERSION_SHOWN, current_version);
+            }
+
             return false;
         }
     }
