@@ -15,7 +15,6 @@
 namespace AppTemplate {
 
     public class Logger : GLib.Object {
-        private static Logger? _instance = null;
         private static Once<Logger> _once = Once<Logger>();
 
         private string log_domain;

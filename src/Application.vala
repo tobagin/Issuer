@@ -61,7 +61,8 @@ namespace AppTemplate {
             var quit_action = new SimpleAction(Constants.ACTION_QUIT, null);
             quit_action.activate.connect(quit);
             add_action(quit_action);
-            set_accels_for_action("app.quit", {"<primary>q"});
+            const string[] quit_accels = {"<primary>q", null};
+            set_accels_for_action("app.quit", quit_accels);
 
             var about_action = new SimpleAction(Constants.ACTION_ABOUT, null);
             about_action.activate.connect(() => {
@@ -73,7 +74,8 @@ namespace AppTemplate {
             preferences_action.activate.connect(show_preferences);
             add_action(preferences_action);
 
-            set_accels_for_action("win.show-help-overlay", {"<primary>question"});
+            const string[] help_accels = {"<primary>question", null};
+            set_accels_for_action("win.show-help-overlay", help_accels);
 
             logger.debug("Application actions configured");
         }
@@ -107,18 +109,14 @@ namespace AppTemplate {
                 }
             }
             
-            try {
-                string last_version = settings.get_string(Constants.SETTINGS_LAST_VERSION_SHOWN);
-                string current_version = Config.VERSION;
+            string last_version = settings.get_string(Constants.SETTINGS_LAST_VERSION_SHOWN);
+            string current_version = Config.VERSION;
 
-                // Show if this is the first run (empty last version) or version has changed
-                if (last_version == "" || last_version != current_version) {
-                    settings.set_string(Constants.SETTINGS_LAST_VERSION_SHOWN, current_version);
-                    logger.info("New version detected: %s (was: %s)", current_version, last_version == "" ? "first run" : last_version);
-                    return true;
-                }
-            } catch (Error e) {
-                logger.warning("Failed to check last version shown: %s", e.message);
+            // Show if this is the first run (empty last version) or version has changed
+            if (last_version == "" || last_version != current_version) {
+                settings.set_string(Constants.SETTINGS_LAST_VERSION_SHOWN, current_version);
+                logger.info("New version detected: %s (was: %s)", current_version, last_version == "" ? "first run" : last_version);
+                return true;
             }
             
             return false;

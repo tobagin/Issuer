@@ -137,6 +137,8 @@ namespace AppTemplate {
                             app.quit ();
                         }
                     }
+                    // Suppress unused variable warning by referencing self
+                    assert(this != null);
                 });
 
                 dialog.present (main_window);

@@ -18,9 +18,9 @@ public class AppTemplateAboutDialog : GLib.Object {
         var logger = AppTemplate.Logger.get_default();
         logger.debug("About action activated");
         
-        string[] developers = { "Thiago Fernandes" };
-        string[] designers = { "Thiago Fernandes" };
-        string[] artists = { "Thiago Fernandes" };
+        var developers = new string[] { "Thiago Fernandes", null };
+        var designers = new string[] { "Thiago Fernandes", null };
+        var artists = new string[] { "Thiago Fernandes", null };
         
         string comments = "A modern, native GTK4/LibAdwaita App Template";
         if (Config.ID.contains("Devel")) {
@@ -30,7 +30,7 @@ public class AppTemplateAboutDialog : GLib.Object {
         var about = new Adw.AboutDialog() {
             application_name = Config.NAME,
             application_icon = Config.ID,
-            developer_name = "The  Team",
+            developer_name = "The App Template Team",
             version = Config.VERSION,
             developers = developers,
             designers = designers,
@@ -46,17 +46,16 @@ public class AppTemplateAboutDialog : GLib.Object {
         load_release_notes(about);
 
         // Set copyright
-        about.set_copyright("© 2025 The " + Config.NAME + " Team");
+        about.set_copyright("© 2025 The App Template Team");
 
         // Add acknowledgement section
-        about.add_acknowledgement_section(
-            "Special Thanks",
-            {
-                "The GNOME Project",
-                "LibAdwaita Contributors",
-                "Vala Programming Language Team"
-            }
-        );
+        var acknowledgements = new string[] {
+            "The GNOME Project",
+            "LibAdwaita Contributors",
+            "Vala Programming Language Team",
+            null
+        };
+        about.add_acknowledgement_section("Special Thanks", acknowledgements);
 
         // Set translator credits
         about.set_translator_credits("Thiago Fernandes");
@@ -102,7 +101,8 @@ public class AppTemplateAboutDialog : GLib.Object {
                 
                 if (file.query_exists()) {
                     uint8[] contents;
-                    file.load_contents(null, out contents, null);
+                    string etag_out;
+                    file.load_contents(null, out contents, out etag_out);
                     string xml_content = (string) contents;
                     
                     // Parse the XML to find the release matching Config.VERSION
@@ -146,7 +146,8 @@ public class AppTemplateAboutDialog : GLib.Object {
                 
                 if (file.query_exists()) {
                     uint8[] contents;
-                    file.load_contents(null, out contents, null);
+                    string etag_out;
+                    file.load_contents(null, out contents, out etag_out);
                     string xml_content = (string) contents;
                     
                     // Parse the XML to find the release matching Config.VERSION

@@ -14,7 +14,8 @@
 
 namespace AppTemplate {
 
-    public class Constants : GLib.Object {
+    [Compact]
+    public class Constants {
 
         // Window Defaults
         public const int DEFAULT_WINDOW_WIDTH = 800;

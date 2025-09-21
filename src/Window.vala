@@ -23,7 +23,7 @@ namespace AppTemplate {
 
     public class Window : Adw.ApplicationWindow {
 
-        [GtkChild]
+[GtkChild]
         private unowned Adw.HeaderBar header_bar;
 
         [GtkChild]
@@ -45,6 +45,14 @@ namespace AppTemplate {
 
             logger = Logger.get_default();
             setup_actions();
+
+            // Ensure template widgets are accessible (suppresses unused warnings)
+            assert(header_bar != null);
+            assert(menu_button != null);
+            assert(toast_overlay != null);
+            assert(welcome_status != null);
+            assert(about_button != null);
+
             logger.info("Window created and initialized");
         }
 
