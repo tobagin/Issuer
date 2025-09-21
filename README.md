@@ -65,18 +65,6 @@ cd app_template
 ./scripts/build.sh
 ```
 
-### Advanced Flatpak Build
-
-```bash
-# Development build with verbose output
-flatpak-builder build packaging/io.github.tobagin.AppTemplate.Devel.yml --install --user --force-clean --verbose
-
-# Production build for distribution
-flatpak-builder build packaging/io.github.tobagin.AppTemplate.yml --install --user --force-clean
-
-# Build without installing
-flatpak-builder build packaging/io.github.tobagin.AppTemplate.Devel.yml --force-clean
-```
 
 ## 🏃 Running
 
@@ -156,28 +144,31 @@ Update the application ID in `meson.build` and data templates for your project.
 
 ### Adapting for Your Project
 
-1. **Update Application Metadata**
+1. **Update Project Configuration**
    ```bash
    # Edit meson.build
-   project('your-app-name', 'vala', 'c')
-
-   # Update application ID
-   app_id = 'org.example.YourApp'
+   project_name = 'your-app-name'
+   project_id = 'org.example.YourApp'
    ```
 
-2. **Customize Application Data**
+2. **Rename and Edit Data Templates**
    ```bash
-   # Rename and edit data templates
+   # Rename all template files to match your project ID
    data/org.example.YourApp.desktop.in
    data/org.example.YourApp.metainfo.xml.in
    data/org.example.YourApp.gschema.xml.in
+   data/org.example.YourApp.gresources.xml.in
+
+   # Update content inside these files with your app details
    ```
 
-3. **Update Source Code**
-   ```vala
-   // Edit src/Config.vala.in
-   public const string NAME = "Your App Name";
-   public const string DESCRIPTION = "Your app description";
+3. **Update Flatpak Manifests**
+   ```bash
+   # Rename manifest files
+   packaging/org.example.YourApp.yml
+   packaging/org.example.YourApp.Devel.yml
+
+   # Update application ID inside manifests
    ```
 
 4. **Replace Icons**
