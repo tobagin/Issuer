@@ -55,8 +55,8 @@ This template is designed specifically for Flatpak applications. All builds are 
 
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd app_template
+git clone https://github.com/tobagin/AppTemplate.git
+cd AppTemplate
 
 # Build development version (uses local source)
 ./scripts/build.sh --dev
@@ -146,27 +146,27 @@ Update the application ID in `meson.build` and data templates for your project.
 
 1. **Update Project Configuration**
    ```bash
-   # Edit meson.build
-   project_name = 'your-app-name'
-   project_id = 'org.example.YourApp'
+   # Edit meson.build - change from template values:
+   project_name = 'gnome-app-template'  # -> 'your-app-name'
+   project_id = 'io.github.tobagin.AppTemplate'  # -> 'io.github.youruser.YourApp'
    ```
 
 2. **Rename and Edit Data Templates**
    ```bash
-   # Rename all template files to match your project ID
-   data/org.example.YourApp.desktop.in
-   data/org.example.YourApp.metainfo.xml.in
-   data/org.example.YourApp.gschema.xml.in
-   data/org.example.YourApp.gresources.xml.in
+   # Rename all template files from:
+   data/io.github.tobagin.AppTemplate.desktop.in -> data/io.github.youruser.YourApp.desktop.in
+   data/io.github.tobagin.AppTemplate.metainfo.xml.in -> data/io.github.youruser.YourApp.metainfo.xml.in
+   data/io.github.tobagin.AppTemplate.gschema.xml.in -> data/io.github.youruser.YourApp.gschema.xml.in
+   data/io.github.tobagin.AppTemplate.gresources.xml.in -> data/io.github.youruser.YourApp.gresources.xml.in
 
    # Update content inside these files with your app details
    ```
 
 3. **Update Flatpak Manifests**
    ```bash
-   # Rename manifest files
-   packaging/org.example.YourApp.yml
-   packaging/org.example.YourApp.Devel.yml
+   # Rename manifest files from:
+   packaging/io.github.tobagin.AppTemplate.yml -> packaging/io.github.youruser.YourApp.yml
+   packaging/io.github.tobagin.AppTemplate.Devel.yml -> packaging/io.github.youruser.YourApp.Devel.yml
 
    # Update application ID inside manifests
    ```
@@ -332,7 +332,7 @@ journalctl --user -f | grep app-template
 1. **Fork and Clone**
    ```bash
    git clone <your-fork-url>
-   cd app_template
+   cd AppTemplate
    ```
 
 2. **Create Feature Branch**
