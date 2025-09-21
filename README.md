@@ -147,7 +147,7 @@ Update the application ID in `meson.build` and data templates for your project.
 1. **Update Project Configuration**
    ```bash
    # Edit meson.build - change from template values:
-   project_name = 'gnome-app-template'  # -> 'your-app-name'
+   project_name = 'App Template'  # -> 'Your App Name'
    project_id = 'io.github.tobagin.AppTemplate'  # -> 'io.github.youruser.YourApp'
    ```
 
