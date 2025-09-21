@@ -78,6 +78,38 @@ if (current_version != last_known_version) {
 - Dialog can be dismissed and won't show again for the same version
 - Clean, native GNOME design consistent with platform guidelines
 
+**Configuration:**
+The "What's New" feature can be controlled through the application preferences:
+
+- **Location**: Preferences → Notifications → "Show release notes on updates"
+- **Default**: Enabled (users see release notes by default)
+- **When Disabled**: Version tracking continues but dialog is suppressed
+- **Re-enabling**: Can be turned back on at any time through preferences
+
+**How to Access:**
+1. Open the application menu (⋮ button)
+2. Select "Preferences"
+3. Navigate to the "Notifications" section
+4. Toggle "Show release notes on updates"
+
+**Technical Implementation:**
+```xml
+<!-- GSettings Schema -->
+<key name="show-whats-new" type="b">
+  <default>true</default>
+  <summary>Show What's New dialog</summary>
+  <description>Display release notes when the application is updated to a new version</description>
+</key>
+```
+
+```vala
+// Usage in code
+var settings = SettingsManager.get_instance();
+if (settings.get_show_whats_new() && version_changed) {
+    show_whats_new_dialog();
+}
+```
+
 ## 📋 Requirements
 
 ### Development Dependencies

@@ -29,6 +29,7 @@ namespace AppTemplate {
         public const string SETTINGS_WINDOW_MAXIMIZED = "window-maximized";
         public const string SETTINGS_FIRST_RUN = "first-run";
         public const string SETTINGS_LAST_VERSION_SHOWN = "last-version-shown";
+        public const string SETTINGS_SHOW_WHATS_NEW = "show-whats-new";
 
         // UI Constants
         public const string MAIN_WINDOW_ICON = "preferences-system-symbolic";

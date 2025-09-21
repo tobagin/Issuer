@@ -64,6 +64,19 @@ namespace AppTemplate {
             settings.bind (Constants.SETTINGS_COLOR_SCHEME, object, property, SettingsBindFlags.DEFAULT);
         }
 
+        // What's New feature settings
+        public bool get_show_whats_new () {
+            return settings.get_boolean (Constants.SETTINGS_SHOW_WHATS_NEW);
+        }
+
+        public void set_show_whats_new (bool show) {
+            settings.set_boolean (Constants.SETTINGS_SHOW_WHATS_NEW, show);
+        }
+
+        public void bind_show_whats_new (GLib.Object object, string property) {
+            settings.bind (Constants.SETTINGS_SHOW_WHATS_NEW, object, property, SettingsBindFlags.DEFAULT);
+        }
+
         private void apply_theme (ColorScheme scheme) {
             var style_manager = Adw.StyleManager.get_default ();
 

@@ -46,5 +46,11 @@
       <summary>Last version for which release notes were shown</summary>
       <description>Tracks the last application version for which release notes were displayed to avoid showing them repeatedly</description>
     </key>
+
+    <key name="show-whats-new" type="b">
+      <default>true</default>
+      <summary>Show What's New dialog</summary>
+      <description>Display release notes when the application is updated to a new version</description>
+    </key>
   </schema>
 </schemalist>

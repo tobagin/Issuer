@@ -25,6 +25,8 @@ namespace AppTemplate {
     public class Preferences : Adw.PreferencesDialog {
     [GtkChild]
     private unowned Adw.ComboRow theme_row;
+    [GtkChild]
+    private unowned Adw.SwitchRow whats_new_row;
 
     private SettingsManager settings_manager;
     private AppTemplate.Logger logger;
@@ -37,6 +39,7 @@ namespace AppTemplate {
         logger = Logger.get_default();
         settings_manager = SettingsManager.get_instance ();
         setup_theme_selection ();
+        setup_whats_new_switch ();
         bind_settings ();
         logger.debug ("Preferences dialog constructed");
     }
@@ -51,9 +54,18 @@ namespace AppTemplate {
         });
     }
 
+    private void setup_whats_new_switch () {
+        whats_new_row.active = settings_manager.get_show_whats_new ();
+
+        whats_new_row.notify["active"].connect (() => {
+            settings_manager.set_show_whats_new (whats_new_row.active);
+            logger.debug ("What's New preference changed to: %s", whats_new_row.active.to_string ());
+        });
+    }
+
     private void bind_settings () {
-        // Manual binding handled by notify["selected"] signal above
-        // Direct binding not possible due to type incompatibility (enum string vs uint)
+        // Manual binding handled by notify signals above
+        // Direct binding not possible due to type incompatibility (enum string vs uint for theme)
     }
 
     public void show_preferences (Gtk.Window parent) {

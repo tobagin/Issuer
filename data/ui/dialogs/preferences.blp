@@ -20,6 +20,16 @@ template $AppTemplatePreferences : Adw.PreferencesDialog {
         model: theme_model;
       }
     }
+
+    Adw.PreferencesGroup {
+      title: _("Notifications");
+      description: _("Configure application notifications and updates");
+
+      Adw.SwitchRow whats_new_row {
+        title: _("Show release notes on updates");
+        subtitle: _("Display what's new when the application is updated");
+      }
+    }
   }
 }
 
