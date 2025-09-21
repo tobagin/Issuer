@@ -109,33 +109,37 @@ namespace AppTemplate {
                 }
             }
 
-            // Check if user has disabled the What's New feature
-            if (!settings.get_show_whats_new()) {
-                logger.debug("What's New feature is disabled in preferences");
-                return false;
-            }
-
-            // Don't show on first run
-            if (settings.is_first_run()) {
-                logger.info("First run detected, not showing What's New dialog");
-                settings.set_first_run_complete();
-                settings.set_string(Constants.SETTINGS_LAST_VERSION_SHOWN, Config.VERSION);
-                return false;
-            }
-
-            string last_version = settings.get_string(Constants.SETTINGS_LAST_VERSION_SHOWN);
+            string last_version = settings.get_string(Constants.SETTINGS_LAST_VERSION_RAN);
             string current_version = Config.VERSION;
 
-            // Show only if version has changed (not first run)
-            if (last_version != "" && last_version != current_version) {
-                settings.set_string(Constants.SETTINGS_LAST_VERSION_SHOWN, current_version);
+            // Handle first run - initialize version tracking but don't show dialog
+            if (settings.is_first_run()) {
+                logger.info("First run detected, initializing version tracking");
+                settings.set_first_run_complete();
+                settings.set_string(Constants.SETTINGS_LAST_VERSION_RAN, current_version);
+                return false;
+            }
+
+            // Always update version tracking when version changes
+            bool version_changed = (last_version != "" && last_version != current_version);
+            if (version_changed) {
+                settings.set_string(Constants.SETTINGS_LAST_VERSION_RAN, current_version);
                 logger.info("Version update detected: %s → %s", last_version, current_version);
+            }
+
+            // Initialize version tracking for edge cases
+            if (last_version == "") {
+                settings.set_string(Constants.SETTINGS_LAST_VERSION_RAN, current_version);
+            }
+
+            // Only show dialog if all conditions are met
+            if (version_changed && settings.get_show_whats_new()) {
+                logger.info("Showing What's New dialog for version %s", current_version);
                 return true;
             }
 
-            // Update version tracking even if not showing dialog
-            if (last_version == "") {
-                settings.set_string(Constants.SETTINGS_LAST_VERSION_SHOWN, current_version);
+            if (!settings.get_show_whats_new()) {
+                logger.debug("What's New feature is disabled in preferences");
             }
 
             return false;

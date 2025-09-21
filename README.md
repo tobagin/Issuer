@@ -37,20 +37,26 @@ The template includes an intelligent "What's New" system that automatically disp
 
 **How It Works:**
 - **First-run detection**: Uses GSettings to identify fresh installations
-- **Version tracking**: Stores the last known application version
-- **Smart comparison**: Only triggers on genuine version updates (not fresh installs)
-- **User preference check**: Respects the user's preference setting
-- **Automatic display**: Shows release notes from AppStream metadata when appropriate
+- **Continuous version tracking**: Always tracks the last executed version (regardless of user preference)
+- **Smart comparison**: Only triggers dialog on genuine version updates (not fresh installs)
+- **User preference respect**: Shows dialog only when feature is enabled
+- **No stale notifications**: Users won't see old release notes when re-enabling the feature
 
 **Version Detection Logic:**
 ```vala
-// Smart version detection on application startup
-if (settings.get_show_whats_new() &&           // User hasn't disabled it
-    !settings.is_first_run() &&                // Not a fresh install
-    last_version != "" &&                      // Has previous version
-    last_version != current_version) {         // Version actually changed
+// Always track version changes, conditionally show dialog
+string last_version = settings.get_string("last-version-ran");
+string current_version = Config.VERSION;
+
+// Always update version tracking when version changes
+bool version_changed = (last_version != "" && last_version != current_version);
+if (version_changed) {
+    settings.set_string("last-version-ran", current_version);
+}
+
+// Only show dialog if user wants it AND version actually changed
+if (version_changed && settings.get_show_whats_new()) {
     show_whats_new_dialog();
-    update_stored_version(current_version);
 }
 ```
 
@@ -88,8 +94,8 @@ The "What's New" feature can be controlled through the application preferences:
 
 - **Location**: Preferences → Notifications → "Show release notes on updates"
 - **Default**: Enabled (users see release notes by default)
-- **When Disabled**: Version tracking continues but dialog is suppressed
-- **Re-enabling**: Can be turned back on at any time through preferences
+- **When Disabled**: Version tracking continues silently (no stale notifications when re-enabled)
+- **Re-enabling**: Shows release notes only for future updates, not missed ones
 
 **How to Access:**
 1. Open the application menu (⋮ button)
@@ -100,6 +106,12 @@ The "What's New" feature can be controlled through the application preferences:
 **Technical Implementation:**
 ```xml
 <!-- GSettings Schema -->
+<key name="last-version-ran" type="s">
+  <default>""</default>
+  <summary>Last application version that was run</summary>
+  <description>Tracks the last application version that was executed to detect version changes</description>
+</key>
+
 <key name="show-whats-new" type="b">
   <default>true</default>
   <summary>Show What's New dialog</summary>
@@ -110,13 +122,20 @@ The "What's New" feature can be controlled through the application preferences:
 ```vala
 // Complete implementation example
 var settings = SettingsManager.get_instance();
+string last_version = settings.get_string("last-version-ran");
+string current_version = Config.VERSION;
 
-// Check all conditions before showing
-if (settings.get_show_whats_new() &&           // Feature enabled
-    !settings.is_first_run() &&                // Not fresh install
-    version_changed) {                         // Genuine update
+// Always track version changes
+bool version_changed = (last_version != "" && last_version != current_version);
+if (version_changed) {
+    settings.set_string("last-version-ran", current_version);
+}
+
+// Show dialog only when appropriate
+if (version_changed &&                         // Genuine update
+    settings.get_show_whats_new() &&           // Feature enabled
+    !settings.is_first_run()) {                // Not fresh install
     show_whats_new_dialog();
-    settings.set_first_run_complete();         // Mark first run as done
 }
 ```
 

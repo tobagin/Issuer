@@ -28,7 +28,7 @@ namespace AppTemplate {
         public const string SETTINGS_WINDOW_HEIGHT = "window-height";
         public const string SETTINGS_WINDOW_MAXIMIZED = "window-maximized";
         public const string SETTINGS_FIRST_RUN = "first-run";
-        public const string SETTINGS_LAST_VERSION_SHOWN = "last-version-shown";
+        public const string SETTINGS_LAST_VERSION_RAN = "last-version-ran";
         public const string SETTINGS_SHOW_WHATS_NEW = "show-whats-new";
 
         // UI Constants
