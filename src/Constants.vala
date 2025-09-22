@@ -30,6 +30,7 @@ namespace Issuer {
         public const string SETTINGS_FIRST_RUN = "first-run";
         public const string SETTINGS_LAST_VERSION_RAN = "last-version-ran";
         public const string SETTINGS_SHOW_WHATS_NEW = "show-whats-new";
+        public const string SETTINGS_GITHUB_TOKEN = "github-token";
 
         // UI Constants
         public const string MAIN_WINDOW_ICON = "preferences-system-symbolic";

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=@NAME@
-Comment=A modern, native GTK4/LibAdwaita Github Issues Tracker.
+Comment=A modern, native GTK4/LibAdwaita Github issues tracker
 Exec=issuer
 Icon=@ID@
 Terminal=false

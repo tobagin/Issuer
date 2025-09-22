@@ -27,6 +27,10 @@ namespace Issuer {
     private unowned Adw.ComboRow theme_row;
     [GtkChild]
     private unowned Adw.SwitchRow whats_new_row;
+    [GtkChild]
+    private unowned Adw.PasswordEntryRow github_token_row;
+    [GtkChild]
+    private unowned Adw.ActionRow github_help_row;
 
     private SettingsManager settings_manager;
     private Issuer.Logger logger;
@@ -40,6 +44,8 @@ namespace Issuer {
         settings_manager = SettingsManager.get_instance ();
         setup_theme_selection ();
         setup_whats_new_switch ();
+        setup_github_token ();
+        setup_github_help ();
         bind_settings ();
         logger.debug ("Preferences dialog constructed");
     }
@@ -60,6 +66,33 @@ namespace Issuer {
         whats_new_row.notify["active"].connect (() => {
             settings_manager.set_show_whats_new (whats_new_row.active);
             logger.debug ("What's New preference changed to: %s", whats_new_row.active.to_string ());
+        });
+    }
+
+    private void setup_github_token () {
+        github_token_row.text = settings_manager.get_github_token ();
+
+        github_token_row.apply.connect (() => {
+            settings_manager.set_github_token (github_token_row.text);
+            logger.debug ("GitHub token updated");
+        });
+    }
+
+    private void setup_github_help () {
+        github_help_row.activated.connect (() => {
+            try {
+                Gtk.UriLauncher launcher = new Gtk.UriLauncher ("https://github.com/settings/tokens");
+                launcher.launch.begin (this.get_root () as Gtk.Window, null, (obj, res) => {
+                    try {
+                        launcher.launch.end (res);
+                        logger.debug ("Opened GitHub token settings in browser");
+                    } catch (Error e) {
+                        logger.warning ("Failed to open GitHub token settings: %s", e.message);
+                    }
+                });
+            } catch (Error e) {
+                logger.warning ("Failed to create URI launcher: %s", e.message);
+            }
         });
     }
 

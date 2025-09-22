@@ -52,5 +52,11 @@
       <summary>Show What's New dialog</summary>
       <description>Display release notes when the application is updated to a new version</description>
     </key>
+
+    <key name="github-token" type="s">
+      <default>""</default>
+      <summary>GitHub personal access token</summary>
+      <description>Personal access token for GitHub API authentication</description>
+    </key>
   </schema>
 </schemalist>

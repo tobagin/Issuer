@@ -77,6 +77,19 @@ namespace Issuer {
             settings.bind (Constants.SETTINGS_SHOW_WHATS_NEW, object, property, SettingsBindFlags.DEFAULT);
         }
 
+        // GitHub token settings
+        public string get_github_token () {
+            return settings.get_string (Constants.SETTINGS_GITHUB_TOKEN);
+        }
+
+        public void set_github_token (string token) {
+            settings.set_string (Constants.SETTINGS_GITHUB_TOKEN, token);
+        }
+
+        public void bind_github_token (GLib.Object object, string property) {
+            settings.bind (Constants.SETTINGS_GITHUB_TOKEN, object, property, SettingsBindFlags.DEFAULT);
+        }
+
         // First run detection
         public bool is_first_run () {
             return settings.get_boolean (Constants.SETTINGS_FIRST_RUN);

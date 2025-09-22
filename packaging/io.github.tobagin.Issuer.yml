@@ -9,6 +9,13 @@ finish-args:
   - --socket=fallback-x11
   - --socket=wayland
   - --device=dri
+  # Network access for GitHub API
+  - --share=network
+  # Portal access for better system integration
+  - --talk-name=org.freedesktop.portal.Desktop
+  - --talk-name=org.freedesktop.portal.FileChooser
+  - --talk-name=org.freedesktop.portal.OpenURI
+  - --talk-name=org.freedesktop.secrets
 
 modules:
   - name: blueprint-compiler
@@ -20,6 +27,25 @@ modules:
         url: https://gitlab.gnome.org/GNOME/blueprint-compiler.git
         tag: v0.18.0
         commit: 07c9c9df9cd1b6b4454ecba21ee58211e9144a4b
+
+  - name: github-cli
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 bin/gh /app/bin/gh
+      - install -Dm644 share/man/man1/* /app/share/man/man1/ || true
+    sources:
+      - type: archive
+        url: https://github.com/cli/cli/releases/download/v2.79.0/gh_2.79.0_linux_amd64.tar.gz
+        sha256: e7af0c72a607c0528fda1989f7c8e3be85e67d321889002af0e2938ad9c8fb68
+        strip-components: 1
+        only-arches:
+          - x86_64
+      - type: archive
+        url: https://github.com/cli/cli/releases/download/v2.79.0/gh_2.79.0_linux_arm64.tar.gz
+        sha256: 1b91e546b30181a8ee6d8c72bbf59eaadbb0600bab014dfbcc199676c83ea102
+        strip-components: 1
+        only-arches:
+          - aarch64
 
   - name: issuer
     buildsystem: meson

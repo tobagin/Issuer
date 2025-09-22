@@ -20,6 +20,28 @@ template $IssuerPreferences : Adw.PreferencesDialog {
     }
 
     Adw.PreferencesGroup {
+      title: _("GitHub Integration");
+      description: _("Configure GitHub API access and authentication");
+
+      Adw.PasswordEntryRow github_token_row {
+        title: _("Personal Access Token");
+        text: "";
+        show-apply-button: true;
+      }
+
+      Adw.ActionRow github_help_row {
+        title: _("How to get a token");
+        subtitle: _("Visit GitHub Settings → Developer settings → Personal access tokens");
+        activatable: true;
+
+        [suffix]
+        Gtk.Image {
+          icon-name: "adw-external-link-symbolic";
+        }
+      }
+    }
+
+    Adw.PreferencesGroup {
       title: _("Notifications");
       description: _("Configure application notifications and updates");
 
