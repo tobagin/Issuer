@@ -3,5 +3,6 @@
   <gresource prefix="/@ID_PATH@">
     <file>window.ui</file>
     <file>preferences.ui</file>
+    <file>issues.ui</file>
   </gresource>
 </gresources>

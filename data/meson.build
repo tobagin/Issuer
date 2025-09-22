@@ -5,6 +5,7 @@ ui_files = []
 blueprint_files = [
   'ui/window.blp',
   'ui/dialogs/preferences.blp',
+  'ui/views/issues.blp',
 ]
 
 foreach blueprint_file : blueprint_files
@@ -75,5 +76,20 @@ foreach size : icon_sizes
     'icons/hicolor/@0@/apps/io.github.tobagin.Issuer.png'.format(size),
     install_dir: get_option('datadir') / 'icons/hicolor/@0@/apps'.format(size),
     rename: '@0@.png'.format(project_id)
+  )
+endforeach
+
+# Install symbolic SVG icons
+symbolic_icons = [
+  'io.github.tobagin.Issuer-closed-symbolic.svg',
+  'io.github.tobagin.Issuer-draft-symbolic.svg',
+  'io.github.tobagin.Issuer-open-symbolic.svg',
+  'io.github.tobagin.Issuer-refresh-symbolic.svg'
+]
+
+foreach icon : symbolic_icons
+  install_data(
+    'icons/hicolor/scalable/apps/@0@'.format(icon),
+    install_dir: get_option('datadir') / 'icons/hicolor/scalable/apps'
   )
 endforeach

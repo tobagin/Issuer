@@ -10,6 +10,10 @@ app_template_sources = [
   'dialogs/About.vala',
   'dialogs/KeyboardShortcuts.vala',
   'dialogs/Preferences.vala',
+  'api/GitHubApi.vala',
+  'models/Issue.vala',
+  'models/Repository.vala',
+  'views/IssuesView.vala',
 ]
 
 # Generated configuration and resources
@@ -28,6 +32,9 @@ app_template_exe = executable('issuer',
     libadwaita_dep,
     glib_dep,
     gio_dep,
+    libsoup_dep,
+    json_glib_dep,
+    gee_dep,
   ],
   install: true,
   install_dir: get_option('bindir')

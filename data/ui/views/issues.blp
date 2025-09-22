@@ -1,0 +1,126 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $IssuerIssuesView : Gtk.Box {
+  orientation: vertical;
+
+  Gtk.Box toolbar_box {
+    styles ["toolbar"]
+
+    Gtk.Button refresh_button {
+      icon-name: "io.github.tobagin.Issuer-refresh-symbolic";
+      tooltip-text: _("Refresh Issues");
+      margin-start: 6;
+      margin-end: 6;
+      margin-top: 6;
+      margin-bottom: 6;
+    }
+
+    Gtk.Box {
+      hexpand: true;
+    }
+
+    Gtk.MenuButton issues_menu {
+      icon-name: "view-more-symbolic";
+      tooltip-text: _("Issue Options");
+      menu-model: issues_menu_model;
+      margin-start: 6;
+      margin-end: 6;
+      margin-top: 6;
+      margin-bottom: 6;
+    }
+  }
+
+  Adw.ToastOverlay toast_overlay {
+    vexpand: true;
+
+    child: Gtk.Box {
+      orientation: vertical;
+
+      Adw.ViewStack view_stack {
+        vexpand: true;
+
+        Adw.ViewStackPage {
+          name: "loading";
+          child: Adw.StatusPage {
+            icon-name: "content-loading-symbolic";
+            title: _("Loading Issues");
+            description: _("Fetching your GitHub issues...");
+
+            child: Gtk.Spinner loading_spinner {
+              spinning: true;
+              width-request: 32;
+              height-request: 32;
+            };
+          };
+        }
+
+        Adw.ViewStackPage {
+          name: "issues";
+          child: Gtk.ScrolledWindow {
+            vexpand: true;
+            child: Gtk.ListView issues_list_view {};
+          };
+        }
+
+        Adw.ViewStackPage {
+          name: "error";
+          child: Adw.StatusPage error_status {
+            icon-name: "dialog-error-symbolic";
+            title: _("Failed to Load Issues");
+            description: _("Check your internet connection and GitHub token configuration.");
+
+            child: Gtk.Button retry_button {
+              label: _("Try Again");
+              styles ["pill", "suggested-action"]
+              halign: center;
+            };
+          };
+        }
+
+        Adw.ViewStackPage {
+          name: "empty";
+          child: Adw.StatusPage empty_status {
+            icon-name: "issue-opened-symbolic";
+            title: _("No Issues Found");
+            description: _("You don't have any issues in your repositories, or they might all be filtered out.");
+
+            child: Gtk.Button browse_repos_button {
+              label: _("Browse Repositories");
+              styles ["pill", "suggested-action"]
+              halign: center;
+            };
+          };
+        }
+      }
+    };
+  }
+}
+
+menu issues_menu_model {
+  section {
+    item {
+      label: _("Filter by Repository");
+      action: "issues.filter-repo";
+    }
+
+    item {
+      label: _("Filter by Label");
+      action: "issues.filter-label";
+    }
+  }
+
+  section {
+    item {
+      label: _("Create New Issue");
+      action: "issues.create-issue";
+    }
+  }
+
+  section {
+    item {
+      label: _("Preferences");
+      action: "app.preferences";
+    }
+  }
+}

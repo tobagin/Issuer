@@ -75,6 +75,15 @@ namespace Issuer {
         github_token_row.apply.connect (() => {
             settings_manager.set_github_token (github_token_row.text);
             logger.debug ("GitHub token updated");
+
+            // Refresh the main window UI to reflect token changes
+            var app = GLib.Application.get_default() as Issuer.Application;
+            if (app != null && app.active_window != null) {
+                var main_window = app.active_window as Issuer.Window;
+                if (main_window != null) {
+                    main_window.refresh_token_state();
+                }
+            }
         });
     }
 

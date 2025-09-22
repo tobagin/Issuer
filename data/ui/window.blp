@@ -4,11 +4,17 @@ using Adw 1;
 template $IssuerWindow : Adw.ApplicationWindow {
   Gtk.Box {
     orientation: vertical;
-    
+
     Adw.HeaderBar header_bar {
       title-widget: Adw.WindowTitle {
         title: _("Issuer");
       };
+
+      [title]
+      Adw.ViewSwitcher view_switcher {
+        stack: main_stack;
+        policy: wide;
+      }
 
       [end]
       Gtk.MenuButton menu_button {
@@ -21,24 +27,62 @@ template $IssuerWindow : Adw.ApplicationWindow {
     Adw.ToastOverlay toast_overlay {
       vexpand: true;
 
-      child: Adw.StatusPage welcome_status {
-        icon-name: "preferences-system-symbolic";
-        title: _("Welcome to Issuer");
-        description: _("A modern GTK4 application template for GNOME development");
+      child: Adw.ViewStack main_stack {
+        vexpand: true;
 
-        child: Gtk.Box {
-          orientation: vertical;
-          spacing: 12;
-          halign: center;
+        Adw.ViewStackPage welcome_page {
+          name: "welcome";
+          title: _("Welcome");
+          icon-name: "preferences-system-symbolic";
+          child: Adw.StatusPage welcome_status {
+            icon-name: "software-update-available-symbolic";
+            title: _("Welcome to Issuer");
+            description: _("A modern, native GitHub issues tracker for GNOME.\n\nTo get started, configure your GitHub personal access token in preferences.");
 
-          Gtk.Button about_button {
-            label: _("About");
-            styles ["pill", "suggested-action"]
-            halign: center;
-            action-name: "app.about";
-          }
-        };
+            child: Gtk.Box {
+              orientation: vertical;
+              spacing: 12;
+              halign: center;
+
+              Gtk.Button setup_button {
+                label: _("Open Preferences");
+                styles ["pill", "suggested-action"]
+                halign: center;
+                action-name: "app.preferences";
+              }
+
+              Gtk.Button about_button {
+                label: _("About Issuer");
+                styles ["pill"]
+                halign: center;
+                action-name: "app.about";
+              }
+            };
+          };
+        }
+
+        Adw.ViewStackPage open_issues_page {
+          name: "open";
+          title: _("Open");
+          icon-name: "io.github.tobagin.Issuer-open-symbolic";
+          child: $IssuerIssuesView open_issues_view {
+            issues_state: "open";
+          };
+        }
+
+        Adw.ViewStackPage closed_issues_page {
+          name: "closed";
+          title: _("Closed");
+          icon-name: "io.github.tobagin.Issuer-closed-symbolic";
+          child: $IssuerIssuesView closed_issues_view {
+            issues_state: "closed";
+          };
+        }
       };
+    }
+
+    Adw.ViewSwitcherBar view_switcher_bar {
+      stack: main_stack;
     }
   }
 }
