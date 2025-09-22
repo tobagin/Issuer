@@ -62,6 +62,26 @@ namespace AppTemplate {
                 AppTemplate.KeyboardShortcuts.show(this);
             });
             add_action(shortcuts_action);
+
+            var close_window_action = new SimpleAction("close-window", null);
+            close_window_action.activate.connect(() => {
+                close();
+                logger.info("Window closed via shortcut");
+            });
+            add_action(close_window_action);
+
+            var fullscreen_action = new SimpleAction("toggle-fullscreen", null);
+            fullscreen_action.activate.connect(() => {
+                if (fullscreened) {
+                    unfullscreen();
+                    logger.debug("Exited fullscreen");
+                } else {
+                    fullscreen();
+                    logger.debug("Entered fullscreen");
+                }
+            });
+            add_action(fullscreen_action);
+
             logger.debug("Window actions configured");
         }
     }
