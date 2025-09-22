@@ -2,18 +2,12 @@ using Gtk 4.0;
 using Adw 1;
 
 template $AppTemplateWindow : Adw.ApplicationWindow {
-  width-request: 800;
-  height-request: 600;
-  default-width: 1200;
-  default-height: 800;
-
   Gtk.Box {
     orientation: vertical;
     
     Adw.HeaderBar header_bar {
       title-widget: Adw.WindowTitle {
         title: _("App Template");
-        subtitle: _("GTK4 App Template");
       };
 
       [end]

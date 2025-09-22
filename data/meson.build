@@ -5,7 +5,6 @@ ui_files = []
 blueprint_files = [
   'ui/window.blp',
   'ui/dialogs/preferences.blp',
-  'ui/dialogs/keyboard_shortcuts.blp',
 ]
 
 foreach blueprint_file : blueprint_files

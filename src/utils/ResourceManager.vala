@@ -110,8 +110,7 @@ namespace AppTemplate {
         public void preload_ui_resources () {
             string[] ui_files = {
                 "window.ui",
-                "preferences.ui",
-                "keyboard_shortcuts.ui"
+                "preferences.ui"
             };
 
             foreach (string ui_file in ui_files) {
@@ -193,8 +192,7 @@ namespace AppTemplate {
         public void validate_essential_resources () throws Error {
             string[] essential_resources = {
                 get_ui_resource_path ("window.ui"),
-                get_ui_resource_path ("preferences.ui"),
-                get_ui_resource_path ("keyboard_shortcuts.ui")
+                get_ui_resource_path ("preferences.ui")
             };
 
             foreach (string resource_path in essential_resources) {

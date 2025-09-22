@@ -36,9 +36,9 @@ public class AppTemplateAboutDialog : GLib.Object {
             designers = designers,
             artists = artists,
             license_type = Gtk.License.GPL_3_0,
-            website = "https://tobagin.github.io/apps/karere",
-            issue_url = "https://github.com/tobagin/karere/issues",
-            support_url = "https://github.com/tobagin/karere/discussions",
+            website = "https://tobagin.github.io/apps/AppTemplate",
+            issue_url = "https://github.com/tobagin/AppTemplate/issues",
+            support_url = "https://github.com/tobagin/AppTemplate/discussions",
             comments = comments
         };
 
@@ -61,7 +61,7 @@ public class AppTemplateAboutDialog : GLib.Object {
         about.set_translator_credits("Thiago Fernandes");
         
         // Add Source link
-        about.add_link("Source", "https://github.com/tobagin/karere");
+        about.add_link("Source", "https://github.com/tobagin/AppTemplate");
 
         if (parent != null && !parent.in_destruction()) {
             about.present(parent);

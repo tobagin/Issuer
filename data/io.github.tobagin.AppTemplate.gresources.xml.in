@@ -3,6 +3,5 @@
   <gresource prefix="/@ID_PATH@">
     <file>window.ui</file>
     <file>preferences.ui</file>
-    <file>keyboard_shortcuts.ui</file>
   </gresource>
 </gresources>
