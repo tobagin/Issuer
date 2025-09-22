@@ -1,13 +1,13 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $AppTemplateWindow : Adw.ApplicationWindow {
+template $IssuerWindow : Adw.ApplicationWindow {
   Gtk.Box {
     orientation: vertical;
     
     Adw.HeaderBar header_bar {
       title-widget: Adw.WindowTitle {
-        title: _("App Template");
+        title: _("Issuer");
       };
 
       [end]
@@ -23,7 +23,7 @@ template $AppTemplateWindow : Adw.ApplicationWindow {
 
       child: Adw.StatusPage welcome_status {
         icon-name: "preferences-system-symbolic";
-        title: _("Welcome to App Template");
+        title: _("Welcome to Issuer");
         description: _("A modern GTK4 application template for GNOME development");
 
         child: Gtk.Box {
@@ -60,7 +60,7 @@ menu primary_menu {
     }
 
     item {
-      label: _("_About App Template");
+      label: _("_About Issuer");
       action: "app.about";
     }
   }

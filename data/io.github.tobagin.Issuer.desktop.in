@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=@NAME@
-Comment=A modern, native GTK4/LibAdwaita App Template
-Exec=app-template
+Comment=A modern, native GTK4/LibAdwaita Github Issues Tracker.
+Exec=issuer
 Icon=@ID@
 Terminal=false
 Type=Application

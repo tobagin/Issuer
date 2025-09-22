@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  */
 
-namespace AppTemplate {
+namespace Issuer {
 
     public enum ColorScheme {
         DEFAULT = 0,
@@ -23,7 +23,7 @@ namespace AppTemplate {
     public class SettingsManager : GLib.Object {
         private static SettingsManager? instance;
         private GLib.Settings settings;
-        private AppTemplate.Logger logger;
+        private Issuer.Logger logger;
 
         public signal void theme_changed (ColorScheme scheme);
 

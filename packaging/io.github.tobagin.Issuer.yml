@@ -1,8 +1,8 @@
-app-id: io.github.tobagin.AppTemplate
+app-id: io.github.tobagin.Issuer
 runtime: org.gnome.Platform
 runtime-version: '49'
 sdk: org.gnome.Sdk
-command: app-template
+command: issuer
 
 finish-args:
   - --share=ipc
@@ -21,7 +21,7 @@ modules:
         tag: v0.18.0
         commit: 07c9c9df9cd1b6b4454ecba21ee58211e9144a4b
 
-  - name: gnome-app-template
+  - name: issuer
     buildsystem: meson
     config-opts:
       - -Dprofile=default

@@ -33,12 +33,12 @@ done
 
 # Set manifest based on build type
 if [ "$BUILD_TYPE" = "dev" ]; then
-    MANIFEST="packaging/io.github.tobagin.AppTemplate.Devel.yml"
-    APP_ID="io.github.tobagin.AppTemplate.Devel"
+    MANIFEST="packaging/io.github.tobagin.Issuer.Devel.yml"
+    APP_ID="io.github.tobagin.Issuer.Devel"
     echo "Building development version..."
 else
-    MANIFEST="packaging/io.github.tobagin.AppTemplate.yml"
-    APP_ID="io.github.tobagin.AppTemplate"
+    MANIFEST="packaging/io.github.tobagin.Issuer.yml"
+    APP_ID="io.github.tobagin.Issuer"
     echo "Building production version..."
 fi
 

@@ -12,13 +12,13 @@
  * GNU General Public License for more details.
  */
 
-namespace AppTemplate {
+namespace Issuer {
 
 
 #if DEVELOPMENT
-    [GtkTemplate (ui = "/io/github/tobagin/AppTemplate/Devel/window.ui")]
+    [GtkTemplate (ui = "/io/github/tobagin/Issuer/Devel/window.ui")]
 #else
-    [GtkTemplate (ui = "/io/github/tobagin/AppTemplate/window.ui")]
+    [GtkTemplate (ui = "/io/github/tobagin/Issuer/window.ui")]
 #endif
 
     public class Window : Adw.ApplicationWindow {
@@ -59,7 +59,7 @@ namespace AppTemplate {
         private void setup_actions() {
             var shortcuts_action = new SimpleAction(Constants.ACTION_SHOW_HELP_OVERLAY, null);
             shortcuts_action.activate.connect(() => {
-                AppTemplate.KeyboardShortcuts.show(this);
+                Issuer.KeyboardShortcuts.show(this);
             });
             add_action(shortcuts_action);
 

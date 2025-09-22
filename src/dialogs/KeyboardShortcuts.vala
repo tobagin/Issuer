@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  */
 
-namespace AppTemplate {
+namespace Issuer {
 
     public class KeyboardShortcuts : GLib.Object {
 

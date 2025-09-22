@@ -4,7 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>@NAME@</name>
-  <summary>A modern, native GTK4/LibAdwaita App Template</summary>
+  <summary>A modern, native GTK4/LibAdwaita Github issues tracker</summary>
   <description>
     <p>
       A barebone GNOME application template that serves as a starting point for multiple GNOME applications.
@@ -31,12 +31,12 @@
   <developer_name>Thiago Fernandes</developer_name>
   <launchable type="desktop-id">@ID@.desktop</launchable>
   <provides>
-    <binary>app-template</binary>
+    <binary>issuer</binary>
   </provides>
   <releases>
     <release version="@VERSION@" date="2025-09-21">
       <description>
-        <p>Initial release of the GNOME App Template</p>
+        <p>Initial release of Issuer</p>
         <ul>
           <li>Basic GTK4/LibAdwaita application structure</li>
           <li>Blueprint UI integration</li>

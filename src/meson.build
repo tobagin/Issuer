@@ -21,7 +21,7 @@ app_template_sources += [
 app_template_sources += app_resources
 
 # Main executable
-app_template_exe = executable('app-template',
+app_template_exe = executable('issuer',
   app_template_sources,
   dependencies: [
     gtk4_dep,

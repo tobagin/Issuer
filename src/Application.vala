@@ -12,12 +12,12 @@
  * GNU General Public License for more details.
  */
 
-namespace AppTemplate {
+namespace Issuer {
 
     public class Application : Adw.Application {
         private Logger logger;
         private SettingsManager settings;
-        private AppTemplate.Window? main_window;
+        private Issuer.Window? main_window;
 
         public Application() {
             Object(
@@ -33,10 +33,10 @@ namespace AppTemplate {
 
             var window = active_window;
             if (window == null) {
-                main_window = new AppTemplate.Window(this);
+                main_window = new Issuer.Window(this);
                 window = main_window;
             } else {
-                main_window = window as AppTemplate.Window;
+                main_window = window as Issuer.Window;
             }
 
             window.present();
@@ -66,7 +66,7 @@ namespace AppTemplate {
 
             var about_action = new SimpleAction(Constants.ACTION_ABOUT, null);
             about_action.activate.connect(() => {
-                AppTemplateAboutDialog.show(active_window);
+                IssuerAboutDialog.show(active_window);
             });
             add_action(about_action);
             const string[] about_accels = {"<primary>F1", null};
@@ -80,7 +80,7 @@ namespace AppTemplate {
 
             var new_window_action = new SimpleAction("new-window", null);
             new_window_action.activate.connect(() => {
-                var new_window = new AppTemplate.Window(this);
+                var new_window = new Issuer.Window(this);
                 new_window.present();
                 logger.info("New window created");
             });
@@ -103,7 +103,7 @@ namespace AppTemplate {
 
         private void show_preferences() {
             logger.debug("Preferences action triggered");
-            var preferences_dialog = new AppTemplate.Preferences();
+            var preferences_dialog = new Issuer.Preferences();
             preferences_dialog.show_preferences(active_window);
         }
 
@@ -114,7 +114,7 @@ namespace AppTemplate {
                 Timeout.add(Constants.WHATS_NEW_DELAY, () => {
                     if (main_window != null && !main_window.in_destruction()) {
                         logger.info("Showing automatic release notes for new version");
-                        AppTemplateAboutDialog.show_with_release_notes(main_window);
+                        IssuerAboutDialog.show_with_release_notes(main_window);
                     }
                     return false;
                 });
